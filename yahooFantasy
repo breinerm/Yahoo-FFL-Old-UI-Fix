@@ -1,0 +1,58 @@
+// ==UserScript==
+// @name         Yahoo Fantasy Football Old Style
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Revert Yahoo Fantasy Football appearance to last year
+// @author       You
+// @match        https://*.fantasysports.yahoo.com/fantasy/*
+// @grant        GM_addStyle
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Example: Change background color of the header back to last year's color
+    GM_addStyle(`
+        /* Modify header background color */
+        #app header, .NavBar {
+            background-color: #1a1a1a !important; /* Replace with last year's color */
+        }
+        
+        /* Modify font styles */
+        body, .FantasyApp__root {
+            font-family: 'Arial', sans-serif !important; /* Last year's font */
+            font-size: 14px !important; /* Adjust font size */
+        }
+        
+        /* Modify card styles */
+        .PlayerCard, .TeamCard {
+            border: 1px solid #d9d9d9 !important; /* Last year's border style */
+            box-shadow: none !important; /* Remove shadow if they added one this year */
+            border-radius: 5px !important; /* Adjust corners */
+        }
+        
+        /* Modify button styles */
+        .Button {
+            background-color: #f0f0f0 !important;
+            border-radius: 4px !important;
+            color: #333 !important;
+        }
+        
+        /* Example of reverting the score layout to a compact format */
+        .ScoreCard {
+            padding: 8px !important; /* Reduce padding */
+            font-size: 12px !important; /* Adjust text size */
+        }
+        
+        /* Change team row appearance */
+        .TeamRow {
+            background-color: #fff !important;
+            border-bottom: 1px solid #ccc !important;
+        }
+        
+        /* Change text color to match last year's style */
+        .FantasyApp__root, .NavBar a, .PlayerCard__name {
+            color: #333 !important;
+        }
+    `);
+})();
