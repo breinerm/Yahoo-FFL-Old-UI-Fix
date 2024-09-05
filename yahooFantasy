@@ -1,58 +1,92 @@
 // ==UserScript==
-// @name         Yahoo Fantasy Football Old Style
+// @name         Yahoo Fantasy Football Old Style - Compact Player Info with Injury Badge Fix
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Revert Yahoo Fantasy Football appearance to last year
+// @version      1.8
+// @description  Revert Yahoo Fantasy Football appearance to last year, fixing player info layout, injury badge placement, and resizing images for compact rows
 // @author       You
-// @match        https://*.fantasysports.yahoo.com/fantasy/*
+// @match        https://football.fantasysports.yahoo.com/f1/*
 // @grant        GM_addStyle
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    // Example: Change background color of the header back to last year's color
     GM_addStyle(`
-        /* Modify header background color */
-        #app header, .NavBar {
-            background-color: #1a1a1a !important; /* Replace with last year's color */
+        /* Reduce the font size and compact padding for player cards */
+        .ysf-rosterswapper tr, .TeamRow {
+            font-size: 12px !important;
+            height: auto !important;
         }
-        
-        /* Modify font styles */
-        body, .FantasyApp__root {
-            font-family: 'Arial', sans-serif !important; /* Last year's font */
-            font-size: 14px !important; /* Adjust font size */
+
+        /* Resize player image to make rows more compact */
+        .ysf-rosterswapper .Lh-0 img {
+            width: 32px !important;
+            height: 32px !important;
         }
-        
-        /* Modify card styles */
-        .PlayerCard, .TeamCard {
-            border: 1px solid #d9d9d9 !important; /* Last year's border style */
-            box-shadow: none !important; /* Remove shadow if they added one this year */
-            border-radius: 5px !important; /* Adjust corners */
+
+        /* Ensure the player name is on its own line */
+        .ysf-player-name {
+            display: block !important;
+            font-weight: bold;
+            color: #0057b8;
         }
-        
-        /* Modify button styles */
+
+        /* Add a bar between the name and team/position */
+        .ysf-player-name .F-link:after {
+            content: " | ";
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        /* Align game status inline */
+        .ysf-player-name span, .ysf-game-status {
+            display: inline !important;
+        }
+
+        .ysf-game-status {
+            font-size: 12px !important;
+            margin-left: 10px !important;
+            color: #333;
+        }
+
+        /* Adjust the spacing and alignment for the injury badge and player note icon */
+        .ysf-player-status {
+            display: block !important;
+            margin-top: 5px !important;
+        }
+
+        .player-status {
+            margin-top: -8px !important; /* Moves the player note icon closer */
+            margin-bottom: 5px !important; /* Adds space between note and injury badge */
+        }
+
+        .ysf-player-status .Badge {
+            display: inline-block !important;
+            margin-left: 5px !important; /* Space between the player note and injury badge */
+            vertical-align: top;
+        }
+
+        /* Compact row layout */
+        .ysf-player-name, .ysf-player-detail, .ysf-game-status {
+            line-height: 1.2 !important;
+        }
+
+        /* Button and other adjustments remain unchanged */
+        .pos-label.Btn-primary {
+            width: auto !important;
+            min-width: 45px !important;
+            white-space: nowrap !important;
+            text-align: center;
+            padding: 2px 8px !important;
+        }
+
+        .Ta-end, .Bdrstart, .Alt {
+            font-size: 13px !important;
+        }
+
         .Button {
-            background-color: #f0f0f0 !important;
-            border-radius: 4px !important;
-            color: #333 !important;
-        }
-        
-        /* Example of reverting the score layout to a compact format */
-        .ScoreCard {
-            padding: 8px !important; /* Reduce padding */
-            font-size: 12px !important; /* Adjust text size */
-        }
-        
-        /* Change team row appearance */
-        .TeamRow {
-            background-color: #fff !important;
-            border-bottom: 1px solid #ccc !important;
-        }
-        
-        /* Change text color to match last year's style */
-        .FantasyApp__root, .NavBar a, .PlayerCard__name {
-            color: #333 !important;
+            padding: 6px 10px !important;
+            font-size: 12px !important;
         }
     `);
 })();
